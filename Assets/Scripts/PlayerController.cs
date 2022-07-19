@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody rocketRb;
-    AudioSource audioSource;
+    public AudioSource audioSource;
 
     [SerializeField] float mainThrust = 1000;
     [SerializeField] float rotationSpeed = 100;
