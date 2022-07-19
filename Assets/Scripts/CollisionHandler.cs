@@ -5,27 +5,40 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
+
+    [SerializeField] float sceneLoadDelay = 1;
+
     private void OnCollisionEnter(Collision other)
     { 
         switch (other.gameObject.tag)
-        { 
-            case "Friendly":
-                Debug.Log("Hit Friendly");
-                break;
-            
+        {           
             case "Start":
                 Debug.Log("Hit Start");
                 break;
 
             case "Finish":
                 Debug.Log("Hit Finish");
-                LoadNextLevel();
+                SuccessSequence();
                 break;
-            
+
             default:
-                ReloadLevel();
+                CrashSequence();
                 break;
         }    
+    }
+
+    void SuccessSequence()
+    {
+        GetComponent<PlayerController>().enabled = false;
+        GetComponent<PlayerController>().audioSource.Stop();
+        Invoke("LoadNextLevel", sceneLoadDelay);
+    }
+
+    void CrashSequence()
+    {
+        GetComponent<PlayerController>().enabled = false;
+        GetComponent<PlayerController>().audioSource.Stop();
+        Invoke("ReloadLevel", sceneLoadDelay);
     }
 
     void ReloadLevel()
