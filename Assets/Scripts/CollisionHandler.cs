@@ -1,19 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
     private void OnCollisionEnter(Collision other)
-    {
+    { 
         switch (other.gameObject.tag)
-        {
+        { 
             case "Friendly":
                 Debug.Log("Hit Friendly");
-                break;
-            
-            case "Obstacle":
-                Debug.Log("Hit Obstacle");
                 break;
             
             case "Start":
@@ -22,10 +19,36 @@ public class CollisionHandler : MonoBehaviour
 
             case "Finish":
                 Debug.Log("Hit Finish");
+                LoadNextLevel();
                 break;
             
             default:
+                ReloadLevel();
                 break;
         }    
+    }
+
+    void ReloadLevel()
+    {
+        int activeSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        SceneManager.LoadScene(activeSceneIndex);
+    }
+
+    void LoadNextLevel()
+    {
+        int activeSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextScene;
+
+        if (activeSceneIndex < SceneManager.sceneCountInBuildSettings - 1)
+        {
+            nextScene = activeSceneIndex + 1;
+        }
+        else
+        {
+            nextScene = 0;
+        }
+
+        SceneManager.LoadScene(nextScene);
     }
 }
