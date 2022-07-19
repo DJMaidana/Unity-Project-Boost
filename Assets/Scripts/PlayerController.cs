@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] float mainThrust = 1000;
     [SerializeField] float rotationSpeed = 100;
+    [SerializeField] AudioClip rocketBoostSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
             if(!audioSource.isPlaying)
             {    
-                audioSource.Play();
+                audioSource.PlayOneShot(rocketBoostSound);
             }
         }
         else if (audioSource.isPlaying)
