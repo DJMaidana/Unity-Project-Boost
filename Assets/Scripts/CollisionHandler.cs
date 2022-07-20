@@ -18,11 +18,30 @@ public class CollisionHandler : MonoBehaviour
     PlayerController playerController;
 
     bool isTransitioning = false;
+    [SerializeField] bool collisionsEnabled = true;
 
     void Start()
     {
         playerController = GetComponent<PlayerController>();
         audioSource = GetComponent<AudioSource>();
+    }
+
+    void Update()
+    {
+        DebugKeys();
+    }
+
+    void DebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionsEnabled = !collisionsEnabled;
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextLevel();
+        }
     }
 
     void OnCollisionEnter(Collision other)
@@ -41,7 +60,10 @@ public class CollisionHandler : MonoBehaviour
                     break;
 
                 default:
-                    CrashSequence();
+                    if (collisionsEnabled)
+                    {
+                        CrashSequence();
+                    }
                     break;
             }
         }    
