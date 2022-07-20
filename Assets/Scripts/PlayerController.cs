@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody rocketRb;
-    public AudioSource audioSource;
-    [SerializeField] AudioSource directionalBoosters;
+    public AudioSource audioSource;             // Public so CollisionHandler can stop them on Events
+    public AudioSource directionalBoosters;     //
 
     [SerializeField] float mainThrust = 1000;
     [SerializeField] float rotationSpeed = 100;
@@ -34,17 +34,11 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            mainBooster.Play();
-            rocketRb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
-
-            if(!audioSource.isPlaying)
-            {    
-                audioSource.PlayOneShot(rocketBoostSound);
-            }
+            StartThrusting();
         }
         else if (audioSource.isPlaying)
         {
-            audioSource.Stop();
+            StopThrusting();
         }
     }
 
@@ -52,28 +46,53 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
-            RightBooster.Play();
-            ApplyRotation(rotationSpeed);
-
-            if (!directionalBoosters.isPlaying)
-            {
-                directionalBoosters.Play();
-            }
-
+            RotateCounterclockwise();
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            LeftBooster.Play();
-            ApplyRotation(-rotationSpeed);
-
-            if (!directionalBoosters.isPlaying)
-            {
-                directionalBoosters.Play();
-            }
+            RotateClockwise();
         }
         else
         {
-            directionalBoosters.Stop();
+            directionalBoosters.Stop();     //Stops audio when directional keys are released
+        }
+    }
+
+    void StartThrusting()
+    {
+        mainBooster.Play();
+        rocketRb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
+
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(rocketBoostSound);
+        }
+    }
+
+    void StopThrusting()
+    {
+        audioSource.Stop();
+    }
+
+    void RotateCounterclockwise()
+    {
+        RightBooster.Play();
+        ApplyRotation(rotationSpeed);
+
+        if (!directionalBoosters.isPlaying)
+        {
+            directionalBoosters.Play();
+        }
+    }
+
+    private void RotateClockwise()
+    {
+        LeftBooster.Play();
+        ApplyRotation(-rotationSpeed);
+
+        if (!directionalBoosters.isPlaying)
+        {
+            directionalBoosters.Play();
         }
     }
 

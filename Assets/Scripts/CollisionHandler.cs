@@ -15,11 +15,13 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] ParticleSystem VFX_Smoke;
 
     AudioSource audioSource;
+    PlayerController playerController;
 
     bool isTransitioning = false;
 
     void Start()
     {
+        playerController = GetComponent<PlayerController>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -49,9 +51,10 @@ public class CollisionHandler : MonoBehaviour
     {
         VFX_Success.Play();
         isTransitioning = true;
+        playerController.directionalBoosters.Stop();
         audioSource.Stop();
         audioSource.PlayOneShot(success);
-        GetComponent<PlayerController>().enabled = false;
+        playerController.enabled = false;
         Invoke("LoadNextLevel", sceneLoadDelay);
     }
 
@@ -60,10 +63,11 @@ public class CollisionHandler : MonoBehaviour
         VFX_Crash.Play();
         VFX_Smoke.Play();
         isTransitioning = true;
+        playerController.directionalBoosters.Stop();
         audioSource.Stop();
         audioSource.volume = 0.6f;
         audioSource.PlayOneShot(crash);
-        GetComponent<PlayerController>().enabled = false;
+        playerController.enabled = false;
         Invoke("ReloadLevel", sceneLoadDelay);
     }
 
