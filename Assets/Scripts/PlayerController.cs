@@ -6,10 +6,15 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody rocketRb;
     public AudioSource audioSource;
+    [SerializeField] AudioSource directionalBoosters;
 
     [SerializeField] float mainThrust = 1000;
     [SerializeField] float rotationSpeed = 100;
     [SerializeField] AudioClip rocketBoostSound;
+
+    [SerializeField] ParticleSystem mainBooster;
+    [SerializeField] ParticleSystem LeftBooster;
+    [SerializeField] ParticleSystem RightBooster;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
+            mainBooster.Play();
             rocketRb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
 
             if(!audioSource.isPlaying)
@@ -46,11 +52,28 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
+            RightBooster.Play();
             ApplyRotation(rotationSpeed);
+
+            if (!directionalBoosters.isPlaying)
+            {
+                directionalBoosters.Play();
+            }
+
         }
         else if (Input.GetKey(KeyCode.D))
         {
+            LeftBooster.Play();
             ApplyRotation(-rotationSpeed);
+
+            if (!directionalBoosters.isPlaying)
+            {
+                directionalBoosters.Play();
+            }
+        }
+        else
+        {
+            directionalBoosters.Stop();
         }
     }
 
