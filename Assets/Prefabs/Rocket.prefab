@@ -10448,6 +10448,7 @@ GameObject:
   - component: {fileID: 1989678506}
   - component: {fileID: 102099334}
   - component: {fileID: 102099335}
+  - component: {fileID: 6060331120371590691}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Player
@@ -10637,6 +10638,18 @@ MonoBehaviour:
   VFX_Crash: {fileID: 1117031722903808086}
   VFX_Smoke: {fileID: 98312258}
   collisionsEnabled: 1
+--- !u!114 &6060331120371590691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7769298114784146846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b8c77a01ab03a146a5d044168dede7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &144643760980565790
 PrefabInstance:
   m_ObjectHideFlags: 0

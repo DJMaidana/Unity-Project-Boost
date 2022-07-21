@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Moving Obstacle.unity
     guid: 40b87794fb4f432e6aaa31dbed0fc1bc
   - enabled: 1
+    path: Assets/Scenes/Squeeze Through.unity
+    guid: 7fef6f35166fcdeb08c493d3586d354f
+  - enabled: 1
     path: Assets/Scenes/Moving Obstacle 2.unity
     guid: 85fbe175cf30fe0b2a530fcea3ef3860
   m_configObjects: {}
